@@ -56,7 +56,7 @@ export default {
       <swiper-slide v-for="preview in limitPreviews" :key="preview.id">
         <router-link 
           :to="{ name: 'Show', params: { id: preview.id } }"
-          class="group flex flex-col shrink rounded-lg p-3 mt-5 h-full overflow-hidden bg-pink-600 transition-colors duration-400 cursor-pointer hover:bg-pink-700"
+          class="group flex flex-col shrink rounded-lg p-3 mt-5 h-full overflow-hidden bg-pink-500 transition-colors duration-400 cursor-pointer hover:bg-pink-700"
         >
           <div class="relative mb-5">
             <img 
