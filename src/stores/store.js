@@ -1,20 +1,21 @@
 import { defineStore } from 'pinia';
 
 export const useStore = defineStore({
-  id: 'main',
+  id: 'main', // this is the store id
   state: () => ({
     previews: [],
     show: null,
-    sortMode: '', // add a new state to keep track of the current sorting mode
-    genres: {}, // add a new state for the genre mappings
+    sortMode: '', 
+    genres: {}, 
+    currentEpisode: null, 
   }),
   actions: {
     async fetchPreviews() {
       const response = await fetch('https://podcast-api.netlify.app/shows');
       const data = await response.json();
       this.previews = data;
-      this.populateGenres(data); // populate genres after fetching the data
-      this.sortPreviews(); 
+      this.populateGenres(data); 
+      this.sortPreviews();
     },
 
     populateGenres(data) {
@@ -37,9 +38,13 @@ export const useStore = defineStore({
     },
 
     async fetchShow(id) {
-      const response = await fetch(`https://podcast-api.netlify.app/id/${id}`);
-      const data = await response.json();
-      this.show = data;
+      try {
+        const response = await fetch(`https://podcast-api.netlify.app/id/${id}`);
+        const data = await response.json();
+        this.show = data;
+      } catch (error) {
+        console.error("Error fetching show:", error);
+      }
     },
 
     sortPreviews() {
@@ -57,7 +62,6 @@ export const useStore = defineStore({
           this.previews.sort((a, b) => new Date(b.updated) - new Date(a.updated));
           break;
         default:
-          
           break;
       }
     },
@@ -66,5 +70,18 @@ export const useStore = defineStore({
       this.sortMode = mode;
       this.sortPreviews(); 
     },
+
+    playEpisode(episode) {
+      this.currentEpisode = episode;
+      let audio = new Audio(this.currentEpisode.file);
+      audio.play();
+    },
   },
 });
+
+
+
+
+
+
+

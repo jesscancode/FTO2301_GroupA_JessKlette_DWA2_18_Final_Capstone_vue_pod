@@ -1,3 +1,22 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+:root {
+    --line-size: 4px;
+    --symbol-width: 200px;
+    --symbol-height: calc(var(--symbol-width) * 2);
+    --background-1: #daa8cd;
+    --background-2: #daa8cc;
+    --background-3: #9696c8;
+  }
+  
+  /* Tailwind CSS class */
+  .gradient-background {
+    background-image: linear-gradient(
+      var(--background-1),
+      var(--background-2),
+      var(--background-3)
+    );
+  }

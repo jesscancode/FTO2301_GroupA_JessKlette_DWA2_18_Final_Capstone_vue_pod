@@ -2,12 +2,14 @@
 import { onMounted, computed } from 'vue';
 import { useStore } from '../stores/store.js';
 import { Swiper, SwiperSlide } from 'swiper/vue';
+import LoaderSpinner from '../components/LoaderSpinner.vue';
 import 'swiper/css'; 
 
 export default {
   components: {
     Swiper, 
-    SwiperSlide
+    SwiperSlide,
+    LoaderSpinner
   },
   setup() {
     const store = useStore();
@@ -38,26 +40,28 @@ export default {
 </script>
 
 <template>
-  <h1 class="text-2xl mt-5 font-semibold hover:underline cursor-pointer">Recommended Podcasts</h1>
-  <swiper :slides-per-view="1" :space-between="20" :breakpoints="{
-    640: {
-      slidesPerView: 2,
-      spaceBetween: 20
-    },
-    1024: {
-      slidesPerView: 3,
-      spaceBetween: 40
-    },
-    1280: {
-      slidesPerView: 5,
-      spaceBetween: 50
-    }
-  }">
-      <swiper-slide v-for="preview in limitPreviews" :key="preview.id">
-        <router-link 
-          :to="{ name: 'Show', params: { id: preview.id } }"
-          class="group flex flex-col shrink rounded-lg p-3 mt-5 h-full overflow-hidden bg-pink-500 transition-colors duration-400 cursor-pointer hover:bg-pink-700"
-        >
+  <div>
+    <h1 class="text-2xl mt-5 font-semibold hover:underline cursor-pointer">Recommended Podcasts</h1>
+    <div v-if="store.previews.length > 0">
+      <swiper :slides-per-view="1" :space-between="20" :breakpoints="{
+        640: {
+          slidesPerView: 2,
+          spaceBetween: 20
+        },
+        1024: {
+          slidesPerView: 3,
+          spaceBetween: 40
+        },
+        1280: {
+          slidesPerView: 5,
+          spaceBetween: 50
+        }
+      }">
+          <swiper-slide v-for="preview in limitPreviews" :key="preview.id">
+            <router-link 
+              :to="{ name: 'Show', params: { id: preview.id } }"
+              class="group flex flex-col shrink rounded-lg p-3 mt-5 h-full overflow-hidden bg-pink-500 transition-colors duration-400 cursor-pointer hover:bg-pink-700"
+            >
           <div class="relative mb-5">
             <img 
               class="block w-full shadow-lg rounded-lg mt-2" 
@@ -94,6 +98,13 @@ export default {
           </div>
         </router-link>
       </swiper-slide>
-    </swiper>
-  </template>
+        </swiper>
+    </div>
+    <div v-else>
+      <div class="flex justify-center items-center min-h-screen">
+          <LoaderSpinner />
+      </div>
+    </div>
+  </div>
+</template>
   
