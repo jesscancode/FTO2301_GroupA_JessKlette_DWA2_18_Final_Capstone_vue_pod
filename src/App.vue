@@ -1,13 +1,13 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import { RouterLink, RouterView, useRoute } from 'vue-router';
-import { useMeta } from 'vue-meta';
+import { useHead } from '@vueuse/head';
 import MenuItem from './components/MenuItem.vue';
 import NavBar from './components/NavBar.vue';
 import PodcastPlayer from './components/PodcastPlayer.vue';
 import CardCarousel from './components/CardCarousel.vue';
 
-useMeta({
+useHead({
   title: 'vue-pod',
   meta: [
     { name: 'title', content: 'vue-pod' },
@@ -28,8 +28,8 @@ useMeta({
 const route = useRoute();
 let id = route.params.id;
 let openMenu = ref(false)
-
 </script>
+
 
 
 <template>
