@@ -6,6 +6,11 @@ import router from './router'
 
 import './assets/main.css'
 
+import Vue from 'vue'
+import VueMeta from 'vue-meta'
+
+Vue.use(VueMeta)
+
 import piniaPluginPersistedState from 'pinia-plugin-persistedstate'
 import { useStore } from './stores/store.js'
 

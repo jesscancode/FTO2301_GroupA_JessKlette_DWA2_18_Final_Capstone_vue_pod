@@ -34,9 +34,9 @@ export default {
       v-for="preview in store.previews" 
       :key="preview.id" 
       :to="{ name: 'Show', params: { id: preview.id } }"
-      class=" px-0 pt-2 rounded-lg my-2"
+      class="px-0 pt-2 rounded-lg my-2"
     >
-      <div class="group flex flex-col shrink rounded-lg mx-3 p-3 h-full overflow-hidden bg-gray-600 transition-colors duration-400 cursor-pointer hover:bg-pink-700">
+      <div class="group flex-col shrink rounded-lg m-4 p-3 h-full overflow-hidden bg-gray-600 transition-colors duration-400 cursor-pointer hover:bg-pink-700">
         <div class="relative mb-5 mx-3">
           <img 
             class="block w-full shadow-lg rounded-lg mt-2" 

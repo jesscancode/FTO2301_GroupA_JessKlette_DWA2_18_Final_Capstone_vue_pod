@@ -1,27 +1,36 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import { RouterLink, RouterView, useRoute } from 'vue-router';
+import { useMeta } from 'vue-meta';
 import MenuItem from './components/MenuItem.vue';
 import NavBar from './components/NavBar.vue';
 import PodcastPlayer from './components/PodcastPlayer.vue';
 import CardCarousel from './components/CardCarousel.vue';
 
-
-// import MusicPlayer from './components/MusicPlayer.vue'
-
-// import { useSongStore } from './stores/song'
-// import { storeToRefs } from 'pinia';
-// const useSong = useSongStore()
-// const { isPlaying, currentTrack } = storeToRefs(useSong)
-
-// onMounted(() => { isPlaying.value = false })
-
+useMeta({
+  title: 'vue-pod',
+  meta: [
+    { name: 'title', content: 'vue-pod' },
+    { name: 'description', content: '💿 vue-pod 💿 A Podcast App' },
+    { property: 'og:type', content: 'website' },
+    { property: 'og:url', content: 'https://vue-pod.netlify.app/' },
+    { property: 'og:title', content: 'vue-pod' },
+    { property: 'og:description', content: '💿 vue-pod 💿 A Podcast App' },
+    { property: 'og:image', content: 'https://metatags.io/images/meta-tags.png' },
+    { property: 'twitter:card', content: 'summary_large_image' },
+    { property: 'twitter:url', content: 'https://vue-pod.netlify.app/' },
+    { property: 'twitter:title', content: 'vue-pod' },
+    { property: 'twitter:description', content: '💿 vue-pod 💿 A Podcast App' },
+    { property: 'twitter:image', content: 'https://metatags.io/images/meta-tags.png' },
+  ],
+});
 
 const route = useRoute();
 let id = route.params.id;
 let openMenu = ref(false)
 
 </script>
+
 
 <template>
   <div class="antialiased bg-gray-50 dark:bg-gray-900">
@@ -64,7 +73,7 @@ let openMenu = ref(false)
           </button>
           <a href="https://www.youtube.com/watch?v=xIYJ7VaSxYY" class="flex items-center justify-between mr-4">
             <img
-              src="/images/icons/cd-icon.png"
+              src="/favicon/favicon.png"
               class="mr-3 h-8"
               alt="Logo"
             />
