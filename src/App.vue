@@ -5,6 +5,8 @@ import MenuItem from './components/MenuItem.vue';
 import NavBar from './components/NavBar.vue';
 import PodcastPlayer from './components/PodcastPlayer.vue';
 import CardCarousel from './components/CardCarousel.vue';
+
+
 // import MusicPlayer from './components/MusicPlayer.vue'
 
 // import { useSongStore } from './stores/song'
@@ -16,7 +18,8 @@ import CardCarousel from './components/CardCarousel.vue';
 
 
 const route = useRoute();
-  let openMenu = ref(false)
+let id = route.params.id;
+let openMenu = ref(false)
 
 </script>
 
@@ -274,12 +277,12 @@ const route = useRoute();
             <MenuItem class="ml-[10px]" :iconSize="23" name="Recommended" iconString="recommended" pageUrl="/recommended" />
         </RouterLink>
 
-        <RouterLink to="/favourites">
-            <MenuItem class="ml-[10px]" :iconSize="23" name="Favourite Shows" iconString="liked" pageUrl="/favourites" />
+        <RouterLink to="/favourite-shows">
+            <MenuItem class="ml-[10px]" :iconSize="23" name="Favourite Shows" iconString="liked" pageUrl="/favourite-shows" />
         </RouterLink>
 
-        <RouterLink to="/">
-            <MenuItem class="ml-[10px]" :iconSize="23" name="My Episode List" iconString="mylist" pageUrl="/mylist" />
+        <RouterLink to="/favourite-episodes">
+            <MenuItem class="ml-[10px]" :iconSize="23" name="My Episode List" iconString="mylist" pageUrl="/favourite-episodes" />
         </RouterLink>
 
       </ul>

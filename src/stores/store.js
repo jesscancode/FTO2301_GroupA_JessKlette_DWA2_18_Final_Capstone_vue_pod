@@ -1,13 +1,14 @@
 import { defineStore } from 'pinia';
 
 export const useStore = defineStore({
-  id: 'main', // this is the store id
+  id: 'main',
   state: () => ({
     previews: [],
     show: null,
     sortMode: '', 
     genres: {}, 
     currentEpisode: null, 
+    favoriteEpisodes: [],
   }),
   actions: {
     async fetchPreviews() {
@@ -40,10 +41,45 @@ export const useStore = defineStore({
     async fetchShow(id) {
       try {
         const response = await fetch(`https://podcast-api.netlify.app/id/${id}`);
-        const data = await response.json();
+        
+        if (!response.ok) {
+          console.error('Error fetching show:', response.status, response.statusText);
+          const text = await response.text();
+          console.error('Response content:', text);
+          return;
+        }
+    
+        let data = await response.json();
+    
+        data.seasons.forEach(season => {
+          season.episodes.forEach(episode => {
+            episode.id = `${data.id}-${episode.episode}`;
+          });
+        });
+    
         this.show = data;
       } catch (error) {
-        console.error("Error fetching show:", error);
+        console.error('Error fetching show:', error);
+      }
+    },
+    
+
+    async fetchEpisode(showId, episodeNumber) {
+      try {
+        const response = await fetch(`https://podcast-api.netlify.app/id/${showId}`);
+        const data = await response.json();
+        const seasons = data.seasons;
+        for (let season of seasons) {
+          for (let episode of season.episodes) {
+            if (episode.episode === episodeNumber) {
+              this.currentEpisode = episode;
+              return;
+            }
+          }
+        }
+        console.log("Episode not found");
+      } catch (error) {
+        console.error("Error fetching episode:", error);
       }
     },
 
@@ -76,11 +112,55 @@ export const useStore = defineStore({
       let audio = new Audio(this.currentEpisode.file);
       audio.play();
     },
+
+toggleFavoriteEpisode(episode) {
+  if (!episode.id) {
+    console.error('Episode ID is undefined:', episode);
+    return;
+  }
+  const index = this.favoriteEpisodes.findIndex(favEpisode => favEpisode.id === episode.id);
+  if (index !== -1) {
+    this.favoriteEpisodes.splice(index, 1);
+  } else {
+    this.favoriteEpisodes.push({
+      ...episode,
+      show: this.show.title,
+      season: episode.season,
+      dateAdded: new Date()
+    });
+  }
+},
+
+sortFavoriteEpisodesByShowTitle(order = 'asc') {
+  this.favoriteEpisodes.sort((a, b) => {
+    if (order === 'asc') {
+      return a.show.localeCompare(b.show);
+    } else {
+      return b.show.localeCompare(a.show);
+    }
+  });
+},
+
+sortFavoriteEpisodesByDateUpdated(order = 'asc') {
+  this.favoriteEpisodes.sort((a, b) => {
+    if (order === 'asc') {
+      return new Date(a.dateAdded) - new Date(b.dateAdded);
+    } else {
+      return new Date(b.dateAdded) - new Date(a.dateAdded);
+    }
+  });
+},
+
+    isEpisodeFavorite(episodeId) {
+      return this.favoriteEpisodes.some(favEpisode => favEpisode.id === episodeId);
+    },
   },
+  getters: {
+    favoriteEpisodesData() {
+      return [...this.favoriteEpisodes]; // return a copy of the array
+    }
+  }
 });
-
-
-
 
 
 

@@ -56,21 +56,21 @@ export default {
           class="rounded-full bg-pink-600 p-[1-px] cursor-pointer"
           @click="goBack"
         >
-          <ChevronLeft fillColor="#FFF" size=30 />
+          <ChevronLeft fillColor="#FFF" class="h-10 w-10" />
         </button>
         <button 
           type="button" 
           class="rounded-full bg-pink-600 p-[1-px] ml-3 cursor-pointer"
           @click="goForward"
         >
-          <ChevronRight fillColor="#FFF" size=30 />
+          <ChevronRight fillColor="#FFF" class="h-10 w-10" />
         </button>
         <button 
           type="button" 
           class="rounded-full bg-pink-600 p-[1-px] ml-3 cursor-pointer" 
           @click="toggleDropdown"
         >
-          <Tune fillColor="#FFF" size=30 />
+          <Tune fillColor="#FFF" class="h-10 w-10" />
         </button>
         <div v-if="showDropdown" class="absolute mt-12 w-48 z-50 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
           <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">

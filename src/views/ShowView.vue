@@ -1,5 +1,6 @@
 <script>
 import { computed, onMounted } from 'vue';
+import { useRoute } from 'vue-router';
 import { useStore } from '../stores/store.js';
 import LoaderSpinner from '../components/LoaderSpinner.vue';
 
@@ -8,9 +9,10 @@ export default {
   components: {
     LoaderSpinner
   },
-  setup(props) {
+  setup() {
     const store = useStore();
-    const { id } = props;
+    const route = useRoute();
+    const id = route.params.id;
 
     onMounted(() => {
       if (id) {
@@ -29,12 +31,6 @@ export default {
       return `${year}`;
     }
     return { show, formatDate };
-  },
-  props: {
-    id: {
-      type: String,
-      required: true
-    }
   },
 };
 </script>

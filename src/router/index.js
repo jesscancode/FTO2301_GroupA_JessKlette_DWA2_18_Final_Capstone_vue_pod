@@ -1,8 +1,10 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import ShowView from '../views/ShowView.vue' 
-import FavouritesView from '../views/FavouritesView.vue'
+import FavouriteShowsView from '../views/FavouriteShowsView.vue'
+import FavouriteEpisodesView from '../views/FavouriteEpisodesView.vue'
 import SeasonView from '../views/SeasonView.vue' 
+import PodcastPlayer from '../components/PodcastPlayer.vue' 
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -19,15 +21,29 @@ const router = createRouter({
       props: true
     },
     {
-      path: '/favourites',
-      name: 'Favourites',
-      component: FavouritesView
+      path: '/favourite-shows',
+      name: 'favourite-shows',
+      component: FavouriteShowsView,
+      props: true
+    },
+    {
+      path: '/favourite-episodes',
+      name: 'favourite-episodes',
+      component: FavouriteEpisodesView,
+      props: true
     },
     {
       path: '/show/:id/season/:seasonNumber',
       name: 'Season',
       component: SeasonView,
       props: route => ({ id: route.params.id, seasonNumber: Number(route.params.seasonNumber) })
+    },
+
+    {
+      path: '/episode/:episodeId',
+      name: 'PodcastPlayer',
+      component: PodcastPlayer,
+      props: true
     },
     
   ]
