@@ -16,12 +16,12 @@ useHead({
     { property: 'og:url', content: 'https://vue-pod.netlify.app/' },
     { property: 'og:title', content: 'vue-pod' },
     { property: 'og:description', content: '💿 vue-pod 💿 A Podcast App' },
-    { property: 'og:image', content: 'https://metatags.io/images/meta-tags.png' },
+    { property: 'og:image', content: 'https://vue-pod.netlify.app/images/meta-tags.png' },
     { property: 'twitter:card', content: 'summary_large_image' },
     { property: 'twitter:url', content: 'https://vue-pod.netlify.app/' },
     { property: 'twitter:title', content: 'vue-pod' },
     { property: 'twitter:description', content: '💿 vue-pod 💿 A Podcast App' },
-    { property: 'twitter:image', content: 'https://metatags.io/images/meta-tags.png' },
+    { property: 'twitter:image', content: 'https://vue-pod.netlify.app/images/meta-tags.png' },
   ],
 });
 
